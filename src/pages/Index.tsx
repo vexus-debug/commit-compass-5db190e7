@@ -601,51 +601,54 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══════════ CLINIC INFO ═══════════ */}
+      {/* ═══════════ VISIT US — MODERN ═══════════ */}
       <section className="relative py-14 md:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-background to-[hsl(var(--section-blue))]" />
 
         <div className="relative z-10 px-4 md:px-8 lg:px-16">
           <div className="max-w-6xl mx-auto">
             <Reveal>
-              <div className="text-center mb-10 md:mb-14">
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">Visit Us Today</h2>
-                <p className="text-muted-foreground text-base">We're here for you — reach out anytime.</p>
+              <div className="mb-10 md:mb-14">
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-secondary mb-3 block">Get in Touch</span>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">Visit Us Today</h2>
               </div>
             </Reveal>
 
-            <div className="grid md:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-3 gap-4 md:gap-5">
               {[
                 {
                   icon: MapPin,
-                  title: "Our Location",
+                  title: "Location",
                   lines: ["1 & 2 Amba Drive, Off Christ Chapel Ave", "Eleme Junction, Port Harcourt", "Rivers State, Nigeria"],
-                  color: "primary" as const,
+                  accent: "from-primary to-primary/70",
                 },
                 {
                   icon: Clock,
                   title: "Clinic Hours",
                   lines: ["Mon – Fri: 8:00 AM – 5:00 PM", "Saturday: 8:00 AM – 2:00 PM", "Low Vision Clinic: Fridays 9 AM"],
-                  color: "secondary" as const,
+                  accent: "from-secondary to-secondary/70",
                 },
                 {
                   icon: Phone,
-                  title: "Get In Touch",
+                  title: "Contact",
                   lines: ["+234 803 310 8139", "+234 805 502 7740", "tlecrehab@gmail.com"],
-                  color: "accent" as const,
+                  accent: "from-accent to-accent/70",
                 },
               ].map((card, i) => (
-                <Reveal key={i} delay={i * 0.12} direction="up">
-                  <div className="group relative p-7 md:p-8 rounded-2xl bg-background border border-border hover:shadow-xl transition-all duration-500 text-center overflow-hidden">
-                    <div className={`absolute top-0 left-0 right-0 h-1 bg-${card.color}`} />
-                    <div className={`w-14 h-14 rounded-2xl bg-${card.color}/10 text-${card.color} flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                      <card.icon size={26} />
-                    </div>
-                    <h3 className="font-heading text-lg font-bold text-foreground mb-3">{card.title}</h3>
-                    <div className="space-y-1.5">
-                      {card.lines.map((line, j) => (
-                        <p key={j} className="text-muted-foreground text-sm">{line}</p>
-                      ))}
+                <Reveal key={i} delay={i * 0.1} direction="up">
+                  <div className="group relative rounded-2xl bg-card border border-border overflow-hidden hover:shadow-lg transition-all duration-500">
+                    {/* Gradient top bar */}
+                    <div className={`h-1 bg-gradient-to-r ${card.accent}`} />
+                    <div className="p-6 md:p-7">
+                      <div className="flex items-center gap-3 mb-4">
+                        <card.icon size={20} className="text-muted-foreground" />
+                        <h3 className="font-heading text-base font-bold text-foreground">{card.title}</h3>
+                      </div>
+                      <div className="space-y-2 pl-8">
+                        {card.lines.map((line, j) => (
+                          <p key={j} className="text-muted-foreground text-sm leading-relaxed">{line}</p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </Reveal>
