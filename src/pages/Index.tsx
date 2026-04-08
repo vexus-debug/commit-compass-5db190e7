@@ -78,7 +78,7 @@ const programs = [
 const StatCounter = ({ value, suffix, label, icon: Icon, isYear }: { value: number; suffix: string; label: string; icon: React.ElementType; isYear?: boolean }) => {
   const { count, ref } = useCountUp(value, isYear ? 1500 : 2000);
   return (
-    <div ref={ref} className="snap-item min-w-[200px] md:min-w-0 p-6 md:p-8 text-center">
+    <div ref={ref} className="p-4 md:p-8 text-center">
       <Icon size={22} className="mx-auto mb-3 opacity-60" />
       <p className="font-heading text-3xl md:text-4xl font-bold tracking-tight">
         {isYear ? (count || value) : count.toLocaleString()}<span className="text-lg">{suffix}</span>
@@ -99,9 +99,9 @@ const Index = () => {
       <HeroSlider />
 
       {/* ═══════════ FLOATING STATS RIBBON ═══════════ */}
-      <section className="relative -mt-20 z-20 px-4 md:px-8 lg:px-16 pb-4">
+      <section className="relative -mt-10 md:-mt-20 z-20 px-4 md:px-8 lg:px-16 pb-4">
         <div className="max-w-6xl mx-auto">
-          <div className="scroll-snap-x md:grid md:grid-cols-4 md:gap-0 md:rounded-2xl md:overflow-hidden md:shadow-2xl gap-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-0 md:rounded-2xl md:overflow-hidden md:shadow-2xl">
             {stats.map((s, i) => (
               <div
                 key={i}
@@ -211,7 +211,7 @@ const Index = () => {
             </Reveal>
 
             {/* Mobile: horizontal scroll */}
-            <div className="md:hidden scroll-snap-x gap-4 pb-4 -mx-4 px-4">
+            <div className="md:hidden flex flex-col gap-4 pb-4">
               {services.map((s, i) => {
                 const colors = {
                   primary: "border-primary/30 bg-primary/5",
@@ -220,7 +220,7 @@ const Index = () => {
                 };
                 const iconColors = { primary: "text-primary", secondary: "text-secondary", accent: "text-accent" };
                 return (
-                  <div key={i} className={`snap-item min-w-[280px] p-6 rounded-2xl border ${colors[s.color]} backdrop-blur-sm`}>
+                  <div key={i} className={`p-6 rounded-2xl border ${colors[s.color]} backdrop-blur-sm`}>
                     <s.icon size={28} className={`${iconColors[s.color]} mb-4`} />
                     <h3 className="font-heading text-lg font-bold text-foreground mb-2">{s.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
