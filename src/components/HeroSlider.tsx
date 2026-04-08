@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Eye, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import hero1 from "@/assets/hero-1.jpg";
@@ -11,58 +11,38 @@ import hero8 from "@/assets/hero-8.jpg";
 const slides = [
   {
     image: hero5,
-    badge: "Restoring Vision Since 2015",
-    title: "Welcome to",
-    titleHighlight: "TLEC (Re)Hab",
-    titleEnd: "Foundation",
-    subtitle:
-      "Your partner in sight restoration and rehabilitation. We combine world-class eye care with compassionate long-term support for the blind and visually impaired.",
-    cta1: { label: "Our Services", to: "/eye-clinic" },
-    cta2: { label: "Book a Visit", to: "/contact" },
+    tag: "Since 2015",
+    title: "TLEC (Re)Hab Foundation",
+    subtitle: "World-class eye care with compassionate long-term support for the visually impaired.",
+    cta: { label: "Our Services", to: "/eye-clinic" },
   },
   {
     image: hero2,
-    badge: "Professional Development",
-    title: "Training",
-    titleHighlight: "Eye Care",
-    titleEnd: "Professionals",
-    subtitle:
-      "Low vision intensive courses and professional development programs equipping eye care workers across Nigeria with world-class skills.",
-    cta1: { label: "Our Programs", to: "/eye-clinic" },
-    cta2: { label: "Learn More", to: "/about" },
+    tag: "Professional Training",
+    title: "Training Eye Care Professionals",
+    subtitle: "Equipping eye care workers across Nigeria with world-class low vision skills.",
+    cta: { label: "Our Programs", to: "/eye-clinic" },
   },
   {
     image: hero8,
-    badge: "Comprehensive Eye Care",
-    title: "Building",
-    titleHighlight: "Brighter",
-    titleEnd: "Futures",
-    subtitle:
-      "From pediatric ophthalmology to low vision rehabilitation — every patient deserves to see the world clearly.",
-    cta1: { label: "Visit The Clinic", to: "/eye-clinic" },
-    cta2: { label: "Contact Us", to: "/contact" },
+    tag: "Comprehensive Care",
+    title: "Building Brighter Futures",
+    subtitle: "From pediatric ophthalmology to rehabilitation — every patient deserves to see clearly.",
+    cta: { label: "Visit The Clinic", to: "/eye-clinic" },
   },
   {
     image: hero1,
-    badge: "Make a Difference",
-    title: "Every Person",
-    titleHighlight: "Deserves",
-    titleEnd: "to See",
-    subtitle:
-      "Your support funds rehabilitation programs, eye surgeries, and professional training that transforms lives across Nigeria.",
-    cta1: { label: "Donate Now", to: "/donate" },
-    cta2: { label: "Get Involved", to: "/contact" },
+    tag: "Make a Difference",
+    title: "Every Person Deserves to See",
+    subtitle: "Your support funds rehabilitation, surgeries, and training that transforms lives.",
+    cta: { label: "Donate Now", to: "/donate" },
   },
   {
     image: hero3,
-    badge: "Rehabilitation & Independence",
-    title: "Independence",
-    titleHighlight: "Through",
-    titleEnd: "Rehabilitation",
-    subtitle:
-      "1-2 year orientation, mobility training, and life skills programs empowering blind individuals to live independently.",
-    cta1: { label: "About Us", to: "/about" },
-    cta2: { label: "Our Impact", to: "/blog" },
+    tag: "Rehabilitation",
+    title: "Independence Through Rehab",
+    subtitle: "Orientation, mobility training, and life skills empowering blind individuals.",
+    cta: { label: "About Us", to: "/about" },
   },
 ];
 
@@ -80,14 +60,8 @@ const HeroSlider = () => {
     [isTransitioning]
   );
 
-  const next = useCallback(
-    () => goTo((current + 1) % slides.length),
-    [current, goTo]
-  );
-  const prev = useCallback(
-    () => goTo((current - 1 + slides.length) % slides.length),
-    [current, goTo]
-  );
+  const next = useCallback(() => goTo((current + 1) % slides.length), [current, goTo]);
+  const prev = useCallback(() => goTo((current - 1 + slides.length) % slides.length), [current, goTo]);
 
   useEffect(() => {
     const timer = setInterval(next, 7000);
@@ -97,145 +71,93 @@ const HeroSlider = () => {
   const slide = slides[current];
 
   return (
-    <section className="relative h-[85vh] md:h-screen min-h-[550px] max-h-[900px] overflow-hidden">
+    <section className="relative h-[75vh] md:h-[85vh] min-h-[480px] max-h-[800px] overflow-hidden">
       {/* Background images */}
       {slides.map((s, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-all duration-[1200ms] ease-in-out ${
-            i === current
-              ? "opacity-100 z-10 scale-100"
-              : "opacity-0 z-0 scale-105"
+            i === current ? "opacity-100 z-10 scale-100" : "opacity-0 z-0 scale-105"
           }`}
         >
-          <img
-            src={s.image}
-            alt={s.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[hsl(213,86%,8%,0.93)] via-[hsl(213,86%,12%,0.85)] to-[hsl(193,100%,30%,0.55)]" />
+          <img src={s.image} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[hsl(213,86%,6%,0.95)] via-[hsl(213,86%,10%,0.6)] to-[hsl(213,86%,10%,0.3)]" />
         </div>
       ))}
 
-      {/* Content */}
-      <div className="relative z-20 h-full flex items-center">
+      {/* Content — bottom-aligned, minimal */}
+      <div className="relative z-20 h-full flex items-end pb-20 md:pb-24">
         <div className="container">
-          <div className="max-w-2xl space-y-6">
-            {/* Badge */}
-            <div
-              key={`badge-${current}`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 border border-secondary/30 backdrop-blur-sm animate-fade-in"
+          <div className="max-w-xl space-y-4">
+            {/* Tag */}
+            <span
+              key={`tag-${current}`}
+              className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-secondary animate-fade-in"
             >
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              <span className="text-sm font-medium text-primary-foreground/90">
-                {slide.badge}
-              </span>
-            </div>
+              {slide.tag}
+            </span>
 
             {/* Title */}
             <h1
               key={`title-${current}`}
-              className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] animate-slide-in"
+              className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.15] text-primary-foreground animate-slide-in"
             >
-              <span className="text-primary-foreground">{slide.title} </span>
-              <span className="text-secondary">{slide.titleHighlight}</span>
-              <br />
-              <span className="text-primary-foreground">{slide.titleEnd}</span>
+              {slide.title}
             </h1>
 
             {/* Subtitle */}
             <p
               key={`sub-${current}`}
-              className="text-base md:text-lg text-primary-foreground/80 leading-relaxed max-w-xl animate-slide-in"
-              style={{ animationDelay: "0.2s", opacity: 0 }}
+              className="text-sm md:text-base text-primary-foreground/70 leading-relaxed max-w-md animate-slide-in"
+              style={{ animationDelay: "0.15s", opacity: 0 }}
             >
               {slide.subtitle}
             </p>
 
-            {/* CTAs */}
+            {/* Single CTA */}
             <div
               key={`cta-${current}`}
-              className="flex flex-wrap gap-4 animate-slide-in"
-              style={{ animationDelay: "0.4s", opacity: 0 }}
+              className="animate-slide-in pt-1"
+              style={{ animationDelay: "0.3s", opacity: 0 }}
             >
               <Link
-                to={slide.cta1.to}
-                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-all shadow-lg shadow-secondary/25"
+                to={slide.cta.to}
+                className="group inline-flex items-center gap-2 text-secondary font-semibold text-sm hover:gap-3 transition-all"
               >
-                {slide.cta1.label}
-                <ChevronRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
+                {slide.cta.label}
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link
-                to={slide.cta2.to}
-                className="inline-flex items-center gap-2 px-7 py-3.5 border-2 border-primary-foreground/30 text-primary-foreground font-semibold rounded-lg hover:bg-primary-foreground/10 backdrop-blur-sm transition-all"
-              >
-                <Eye size={18} />
-                {slide.cta2.label}
-              </Link>
-            </div>
-
-            {/* Social proof */}
-            <div
-              key={`proof-${current}`}
-              className="flex items-center gap-4 pt-4 animate-slide-in"
-              style={{ animationDelay: "0.6s", opacity: 0 }}
-            >
-              <div className="flex -space-x-3">
-                {[
-                  "bg-secondary",
-                  "bg-accent",
-                  "bg-primary",
-                ].map((bg, i) => (
-                  <div
-                    key={i}
-                    className={`w-10 h-10 rounded-full ${bg} border-2 border-primary-foreground/20 flex items-center justify-center`}
-                  >
-                    <Heart size={14} className="text-primary-foreground" />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-primary-foreground font-semibold text-sm">
-                  1,000+ Lives Touched
-                </p>
-                <p className="text-primary-foreground/60 text-xs">
-                  Since 2015 across Nigeria
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Nav arrows */}
+      {/* Nav arrows — smaller, subtle */}
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground transition-all hover:scale-110"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/15 backdrop-blur-sm flex items-center justify-center text-primary-foreground/60 hover:text-primary-foreground transition-all"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={20} />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 backdrop-blur-sm flex items-center justify-center text-primary-foreground transition-all hover:scale-110"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/15 backdrop-blur-sm flex items-center justify-center text-primary-foreground/60 hover:text-primary-foreground transition-all"
         aria-label="Next slide"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={20} />
       </button>
 
-      {/* Slide indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {/* Slide indicators — bottom left, minimal */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-8 z-20 flex gap-1.5">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
-            className={`h-2 rounded-full transition-all duration-500 ${
+            className={`h-1 rounded-full transition-all duration-500 ${
               i === current
-                ? "w-10 bg-secondary"
-                : "w-2 bg-primary-foreground/40 hover:bg-primary-foreground/60"
+                ? "w-8 bg-secondary"
+                : "w-4 bg-primary-foreground/25 hover:bg-primary-foreground/40"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />
@@ -243,7 +165,7 @@ const HeroSlider = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
     </section>
   );
 };
